@@ -1,73 +1,58 @@
-import React from 'react'
-import Item from './Item'
-import AddForm from './AddForm'
-import './style.css'
-class App extends React.Component {
+import React, { useState, useEffect } from 'react'
+import FAddForm from './FAddForm'
+import FItem from './FItem'
 
-  state = {
-    items : [],
-    total : 0,
-    id: 0
-  }
+const App = props => {
+    const [ items, setItems ] = useState([])
+    const [ total, setTotal ] = useState(0)
 
-  // at initial state
-  componentWillMount(){
-    let data = [{ id: 1, name: 'Item 1', price: 0.99, des: 'testing' }, { id: 2, name: 'Item 2', price: 0.89, des: 'testing' }]
-    this.setState({ items: data })
-  }
+    useEffect(() => {
+        console.log('start initial ...')
+        let data = [{ id: 1, name: 'Item 1', price: 0.99, des: 'testing' }, { id: 2, name: 'Item 2', price: 0.89, des: 'testing' }]
+        setItems(data)
+        setTotal(data.length)
+    }, [])
 
-  // at state data changes
-  componentDidUpdate(){
-    console.table(this.state.items)
-  }
+    const add = (name, price, des) => {
+        console.log('added')
+    }
 
-  add = (name, price, des) => {
-    let id = this.state.items.length + 1
-
-    this.setState({items: [
-      ...this.state.items, { id, name, price, des }
-    ],
-    total : id
-    })
-
-  }
-
-  render(){
     return (
-      // <div className='container'>
-      <div style={styles.container}>
-        <h1 style={{ color: 'skyblue', backgroundColor: 'snow'}}>Hello React</h1>
-        <ul>
-          {
-            this.state.items.map(d => {
-              return (
-                <Item
-                  key = {d.id}
-                  name = { d.name }
-                  price = { d.price }
-                  des = { d.des }
-                />
-              )
-            })
-          }
-        </ul>
+        <div style={styles.container}>
+            <h1>Hello React</h1>
 
-        <AddForm 
-          add = { this.add }
-        />
-      </div>
+            <ul style={styles.itemList}>
+                {
+                    items.map(d => {
+                        return (
+                            <FItem 
+                                key = { d.id }
+                                data = { d }
+                            />
+                        )
+                    })
+                }
+            </ul>
+
+            <FAddForm
+                add = { add }
+            />
+        </div>  
     )
-  }
 }
 
 export default App
 
 const styles = {
-  container: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 5,
-    borderStyle: 'solid',
-    borderColor: '#ddd'
-  }
+    container: {
+        margin: 20,
+        padding: 20,
+        borderWith: 5,
+        borderStyle: 'solid',
+        borderColor: '#ddd'
+    },
+    itemList: {
+        listStyle: 'none',
+        padding: 0
+    }
 }

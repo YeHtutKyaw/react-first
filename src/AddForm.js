@@ -8,6 +8,16 @@ class AddForm extends React.Component {
     nameRef = React.createRef()
     priceRef = React.createRef()
 
+    componentDidUpdate(prevProp){
+        console.log(`prevProp: ${prevProp.total}, currentProp: ${this.props.total}`)
+        if(prevProp.total !== this.props.total)
+            console.log('new item inserted!')
+    }
+    
+    componentWillReceiveProps(nextProp){
+        console.log(`nextProp : ${nextProp.total}`)
+    }
+
     changeDesHandler = (e) => {
         this.setState({des: e.target.value})
     }

@@ -4,7 +4,7 @@ const FItem = ({ data }) => {
 
     return (
         <li style={styles.item}> 
-            { `${data.name} - $${data.price} , ${data.des}`}
+            <b>{ `${data.name} - $${data.price}`}</b>{ `, ${data.des}` }
         </li>
     )
 }
@@ -13,12 +13,9 @@ export default FItem
 
 const styles = {
     item: {
-        width: 500,
-        margin: 10,
+        margin: 8,
         padding: 10,
-        color: '#fff',
-        borderStyle: 'solid',
-        borderColor: '#000',
-        background: 'grey'
+        color: 'black',
+        background: '#8ED1FC'
     }
 }
